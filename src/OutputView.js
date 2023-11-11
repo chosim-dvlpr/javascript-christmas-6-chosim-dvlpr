@@ -71,7 +71,6 @@ const OutputView = {
       const date = (dates + 1) % 7
       if (date in WEEK.WEEKDAY) {
         if (dessertCounts > 0) {
-          console.log("디저트카운트 "+dessertCounts)
           const weekdayDC = 2023 * dessertCounts
           Console.print(`평일 할인: -${weekdayDC}원`)
           isDC = true;
@@ -103,13 +102,14 @@ const OutputView = {
       }
     }
     if (!isDC) {
-      Console.print("없음\n")
+      Console.print("없음")
     }
+    Console.print("")
     return totalDC
   },
   printTotalDC(totalDC) {
     Console.print("<총혜택 금액>");
-    Console.print(`-${totalDC}원`);
+    Console.print(`-${totalDC}원\n`);
   },
   printAfterDC(totals, totalDC) {
     Console.print("<할인 후 예상 결제 금액>");
@@ -117,7 +117,22 @@ const OutputView = {
     if (totals > STANDARD.GIVE_CHAMPAGNE) {
       afterDC = afterDC + MENU.샴페인.PRICE;
     }
-    Console.print(`${afterDC}원`)
+    Console.print(`${afterDC}원\n`);
+  },
+  printBadge(totalDC) {
+    Console.print("<12월 이벤트 배지>");
+    if (totalDC > STANDARD.BADGE_SANTA.PRICE) {
+      Console.print(STANDARD.BADGE_SANTA.NAME);
+      return
+    } else if (totalDC > STANDARD.BADGE_TREE.PRICE) {
+      Console.print(STANDARD.BADGE_TREE.PRICE);
+      return
+    } else if (totalDC > STANDARD.BADGE_STAR.PRICE) {
+      Console.print(STANDARD.BADGE_STAR.NAME);
+      return
+    }
+    Console.print("없음");
+    Console.print("");
   },
 }
 

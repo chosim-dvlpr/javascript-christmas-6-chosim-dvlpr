@@ -43,6 +43,9 @@ class App {
 
     // 할인 후 예상 결제 금액
     OutputView.printAfterDC(totals, totalDC);
+
+    // 12월 이벤트 배지
+    OutputView.printBadge(totalDC);
   }
 }
 
