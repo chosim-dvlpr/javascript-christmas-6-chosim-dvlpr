@@ -1,4 +1,4 @@
-class Promotion {
+class Dates {
   #dates;
 
   constructor(dates) {
@@ -18,4 +18,4 @@ class Promotion {
 
 }
 
-export default Promotion;
+export default Dates;
