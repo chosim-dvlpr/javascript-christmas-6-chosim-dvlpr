@@ -11,6 +11,8 @@ class App {
     OutputView.printBenefitsMessage(inputReservedDate);
     
     // 주문 메뉴 출력
+    // 음료만 주문 시 주문 불가
+    // 한 번에 메뉴 20개까지만 주문 가능
     const inputMenuList = inputMenu.split(',').map(String)
     const inputMenuListSplited = [];
     for (let i = 0; i < inputMenuList.length; i++) {
@@ -28,10 +30,14 @@ class App {
     OutputView.printMenu(inputMenuListSplited);
 
     // 할인 전 총주문 금액
-    const totals = OutputView.printBeforeDCTotal(inputMenuListSplited)
+    const {totals, dessertTotals, mainTotals} = OutputView.printBeforeDCTotal(inputMenuListSplited)
   
     // 증정 메뉴
     OutputView.printGivingMenu(totals);
+
+    // 혜택 내역
+    OutputView.printBenefitsDetails(totals, inputReservedDate)
+
   }
 }
 
