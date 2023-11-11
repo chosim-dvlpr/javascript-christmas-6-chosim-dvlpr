@@ -20,7 +20,7 @@ const OutputView = {
   printBeforeDCTotal(inputMenuList) {
     Console.print("<할인 전 총주문 금액>");
     let totals = 0;
-    // let appetizerTotals = 0;
+
     let mainTotals = 0;
     let mainCounts = 0;
 
@@ -29,16 +29,17 @@ const OutputView = {
 
     for (let i = 0; i < inputMenuList.length; i++) {
       const inputMenuListElement = inputMenuList[i];
-      totals = totals + MENU[inputMenuListElement.menuName].PRICE * inputMenuListElement.menuNum
 
+      totals = totals + MENU[inputMenuListElement.menuName].PRICE * inputMenuListElement.menuNum
+      
       switch (MENU[inputMenuListElement.menuName].TYPE) {
         case 'main':
           mainTotals = mainTotals + MENU[inputMenuListElement.menuName].PRICE  
-          mainCounts++;
+          mainCounts = mainCounts + Number(inputMenuListElement.menuNum);
           break;
         case 'dessert':
           dessertTotals = dessertTotals + MENU[inputMenuListElement.menuName].PRICE  
-          dessertCounts++;
+          dessertCounts = dessertCounts + Number(inputMenuListElement.menuNum);
           break;
       }
     }
@@ -70,6 +71,7 @@ const OutputView = {
       const date = (dates + 1) % 7
       if (date in WEEK.WEEKDAY) {
         if (dessertCounts > 0) {
+          console.log("디저트카운트 "+dessertCounts)
           const weekdayDC = 2023 * dessertCounts
           Console.print(`평일 할인: -${weekdayDC}원`)
           isDC = true;
@@ -104,7 +106,11 @@ const OutputView = {
       Console.print("없음\n")
     }
     return totalDC
-  }
+  },
+  printTotalDC(totalDC) {
+    Console.print("<총혜택 금액>");
+    Console.print(`-${totalDC}원`);
+  },
 }
 
 export default OutputView;

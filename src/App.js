@@ -38,6 +38,8 @@ class App {
     // 혜택 내역
     const totalDC = OutputView.printBenefitsDetails(totals, dessertCounts, mainCounts, inputReservedDate);
 
+    // 총 혜택 금액
+    OutputView.printTotalDC(totalDC);
   }
 }
 
