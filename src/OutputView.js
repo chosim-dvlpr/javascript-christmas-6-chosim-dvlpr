@@ -56,7 +56,7 @@ const OutputView = {
   },
   printBenefitsDetails(totals, dessertCounts, mainCounts, dates) {
     Console.print("<혜택 내역>")
-    let isDC = false
+    let isDC = false;
     let totalDC = 0;
 
     if (totals > 10000) {
@@ -110,6 +110,14 @@ const OutputView = {
   printTotalDC(totalDC) {
     Console.print("<총혜택 금액>");
     Console.print(`-${totalDC}원`);
+  },
+  printAfterDC(totals, totalDC) {
+    Console.print("<할인 후 예상 결제 금액>");
+    let afterDC = totals - totalDC;
+    if (totals > STANDARD.GIVE_CHAMPAGNE) {
+      afterDC = afterDC + MENU.샴페인.PRICE;
+    }
+    Console.print(`${afterDC}원`)
   },
 }
 

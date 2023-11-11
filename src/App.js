@@ -40,6 +40,9 @@ class App {
 
     // 총 혜택 금액
     OutputView.printTotalDC(totalDC);
+
+    // 할인 후 예상 결제 금액
+    OutputView.printAfterDC(totals, totalDC);
   }
 }
 
