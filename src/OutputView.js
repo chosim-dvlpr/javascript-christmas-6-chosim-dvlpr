@@ -1,6 +1,7 @@
 import { Console } from '@woowacourse/mission-utils'
 import MENU from './constants/MenuConstant.js';
 import WEEK from './constants/WeekConstant.js';
+import STANDARD from './constants/StandartConstant.js';
 
 const OutputView = {
   printMenu(inputMenuList) {
@@ -21,7 +22,10 @@ const OutputView = {
     let totals = 0;
     // let appetizerTotals = 0;
     let mainTotals = 0;
+    let mainCounts = 0;
+
     let dessertTotals = 0;
+    let dessertCounts = 0;
 
     for (let i = 0; i < inputMenuList.length; i++) {
       const inputMenuListElement = inputMenuList[i];
@@ -30,44 +34,76 @@ const OutputView = {
       switch (MENU[inputMenuListElement.menuName].TYPE) {
         case 'main':
           mainTotals = mainTotals + MENU[inputMenuListElement.menuName].PRICE  
+          mainCounts++;
           break;
         case 'dessert':
           dessertTotals = dessertTotals + MENU[inputMenuListElement.menuName].PRICE  
+          dessertCounts++;
           break;
       }
     }
     Console.print(`${totals}원\n`) // 1000단위로 나누기
-    return totals, dessertTotals, mainTotals
+    return {totals, dessertTotals, dessertCounts, mainTotals, mainCounts}
   },
   printGivingMenu(totals) {
     Console.print("<증정 메뉴>");
-    if (totals > 120000) {
+    if (totals > STANDARD.GIVE_CHAMPAGNE) {
       Console.print("샴페인 1개\n");
       return
     }
     Console.print("없음\n");
   },
-  printBenefitsDetails(totals, dates) {
+  printBenefitsDetails(totals, dessertCounts, mainCounts, dates) {
+    Console.print("<혜택 내역>")
+    let isDC = false
+    let totalDC = 0;
+
     if (totals > 10000) {
       // 크리스마스 디데이 할인
       if (dates < 26) {
         const dDayDC = 1000 + (dates - 1) * 100
         Console.print(`크리스마스 디데이 할인: -${dDayDC}원`)
+        isDC = true;
+        totalDC = totalDC + dDayDC;
       }
       // 평일 할인
       const date = (dates + 1) % 7
       if (date in WEEK.WEEKDAY) {
-        // Console.print(`평일 할인: ${}원`)
+        if (dessertCounts > 0) {
+          const weekdayDC = 2023 * dessertCounts
+          Console.print(`평일 할인: -${weekdayDC}원`)
+          isDC = true;
+          totalDC = totalDC + weekdayDC;
+        }
       }
+      // 주말 할인
+      else {
+        if (mainCounts > 0) {
+          const weekendDC = 2023 * mainCounts
+          Console.print(`주말 할인: -${weekendDC}원`)
+          isDC = true;
+          totalDC = totalDC + weekendDC;
+        }
+      };
       // 특별 할인
-      
+      if ((date + 1) % 7 === WEEK.IS_STAR[0]) {
+        const starDC = WEEK.IS_STAR[1]
+        Console.print(`특별 할인: -${starDC}원`)
+        isDC = true;
+        totalDC = totalDC + starDC;
+      };
       // 증정 이벤트
-
-      // 혜택 내역이 하나도 없다면 없음 출력
-
-      return
+      if (totals > STANDARD.GIVE_CHAMPAGNE) {
+        const champagnePrice = MENU.샴페인.PRICE
+        Console.print(`증정 이벤트: -${champagnePrice}원`);
+        isDC = true;
+        totalDC = totalDC + champagnePrice;
+      }
     }
-    Console.print("없음\n")
+    if (!isDC) {
+      Console.print("없음\n")
+    }
+    return totalDC
   }
 }
 

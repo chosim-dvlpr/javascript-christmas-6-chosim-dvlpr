@@ -30,13 +30,13 @@ class App {
     OutputView.printMenu(inputMenuListSplited);
 
     // 할인 전 총주문 금액
-    const {totals, dessertTotals, mainTotals} = OutputView.printBeforeDCTotal(inputMenuListSplited)
-  
+    const {totals, dessertTotals, dessertCounts, mainTotals, mainCounts} = OutputView.printBeforeDCTotal(inputMenuListSplited)
+
     // 증정 메뉴
     OutputView.printGivingMenu(totals);
 
     // 혜택 내역
-    OutputView.printBenefitsDetails(totals, inputReservedDate)
+    const totalDC = OutputView.printBenefitsDetails(totals, dessertCounts, mainCounts, inputReservedDate);
 
   }
 }
