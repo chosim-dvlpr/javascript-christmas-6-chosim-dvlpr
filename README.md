@@ -252,22 +252,26 @@ app.run();
   - `InputView`, `OutputView`의 메서드의 이름과 인자는 필요에 따라 추가하거나 변경할 수 있다.
   - 값 출력을 위해 필요한 메서드를 추가할 수 있다.
   ```javascript
-  export default InputView = {
+  const InputView = {
     async readDate() {
-      const input = await Console.readLineAsync("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-      // ...
-    },
+        const input = await Console.readLineAsync("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
+        // ...
+    }
     // ...
-  };
+  }
+
+  export default InputView;
   ```
   ```javascript
-  export default OutputView = {
+  const OutputView = {
     printMenu() {
-      Console.print("<주문 메뉴>");
-      // ...
-    },
+        Console.print("<주문 메뉴>");
+        // ...
+    }
     // ...
-  };
+  }
+
+  export default OutputView;
   ```
 
 ### 라이브러리
