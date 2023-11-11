@@ -13,7 +13,7 @@ const OutputView = {
     Console.print("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
   },
   printBenefitsMessage(date) {
-    Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!`);
+    Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`);
   },
   printBeforeDCTotal(inputMenuList) {
     Console.print("<할인 전 총주문 금액>");
@@ -22,7 +22,16 @@ const OutputView = {
       const inputMenuListElement = inputMenuList[i];
       totals = totals + MENU[inputMenuListElement.menuName].PRICE * inputMenuListElement.menuNum
     }
-    Console.print(`${totals}원`) // 1000단위로 나누기
+    Console.print(`${totals}원\n`) // 1000단위로 나누기
+    return totals
+  },
+  printGivingMenu(totals) {
+    Console.print("<증정 메뉴>");
+    if (totals > 120000) {
+      Console.print("샴페인 1개\n");
+      return
+    }
+    Console.print("없음");
   }
 }
 

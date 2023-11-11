@@ -28,7 +28,10 @@ class App {
     OutputView.printMenu(inputMenuListSplited);
 
     // 할인 전 총주문 금액
-    OutputView.printBeforeDCTotal(inputMenuListSplited)
+    const totals = OutputView.printBeforeDCTotal(inputMenuListSplited)
+  
+    // 증정 메뉴
+    OutputView.printGivingMenu(totals);
   }
 }
 
