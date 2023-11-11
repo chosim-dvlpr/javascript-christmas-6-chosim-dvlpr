@@ -16,9 +16,9 @@ class App {
     for (let i = 0; i < inputMenuList.length; i++) {
       const inputMenuListElement = inputMenuList[i];
       const dash = inputMenuListElement.indexOf('-')
-      if (dash === -1) {
-        throw new Error("[ERROR]")
-      }
+      // if (dash === -1) {
+      //   throw new Error("[ERROR]")
+      // }
       const data = {
         menuName: inputMenuListElement.substr(0, dash),
         menuNum: inputMenuListElement.substr(dash+1, )
@@ -28,7 +28,7 @@ class App {
     OutputView.printMenu(inputMenuListSplited);
 
     // 할인 전 총주문 금액
-    
+    OutputView.printBeforeDCTotal(inputMenuListSplited)
   }
 }
 
