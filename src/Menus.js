@@ -18,11 +18,6 @@ class Menus {
       }
     }
   }
-
-  getMenus() {
-    return this.#menus;
-  }
-
 }
 
 export default Menus;

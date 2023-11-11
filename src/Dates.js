@@ -11,11 +11,6 @@ class Dates {
       throw new Error("[ERROR]");
     }
   }
-
-  getDates() {
-    return this.#dates;
-  }
-
 }
 
 export default Dates;
