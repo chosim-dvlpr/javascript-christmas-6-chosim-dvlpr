@@ -9,7 +9,8 @@ const OutputView = {
     for (let i = 0; i < inputMenuList.length; i++) {
       const inputMenuListElement = inputMenuList[i];
       Console.print(`${inputMenuListElement.menuName} ${inputMenuListElement.menuNum}개`);
-    }
+    };
+    Console.print("");
   },
   printWelcome() {
     Console.print("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
@@ -43,7 +44,8 @@ const OutputView = {
           break;
       }
     }
-    Console.print(`${totals}원\n`) // 1000단위로 나누기
+    const stringTotals = totals.toLocaleString();
+    Console.print(`${stringTotals}원\n`);
     return {totals, dessertTotals, dessertCounts, mainTotals, mainCounts}
   },
   printGivingMenu(totals) {
@@ -62,8 +64,9 @@ const OutputView = {
     if (totals > 10000) {
       // 크리스마스 디데이 할인
       if (dates < 26) {
-        const dDayDC = 1000 + (dates - 1) * 100
-        Console.print(`크리스마스 디데이 할인: -${dDayDC}원`)
+        const dDayDC = 1000 + (dates - 1) * 100;
+        const stringDDayDC = dDayDC.toLocaleString();
+        Console.print(`크리스마스 디데이 할인: -${stringDDayDC}원`)
         isDC = true;
         totalDC = totalDC + dDayDC;
       }
@@ -71,8 +74,9 @@ const OutputView = {
       const date = (dates + 1) % 7
       if (date in WEEK.WEEKDAY) {
         if (dessertCounts > 0) {
-          const weekdayDC = 2023 * dessertCounts
-          Console.print(`평일 할인: -${weekdayDC}원`)
+          const weekdayDC = 2023 * dessertCounts;
+          const stringWeekdayDC = weekdayDC.toLocaleString();
+          Console.print(`평일 할인: -${stringWeekdayDC}원`)
           isDC = true;
           totalDC = totalDC + weekdayDC;
         }
@@ -80,23 +84,26 @@ const OutputView = {
       // 주말 할인
       else {
         if (mainCounts > 0) {
-          const weekendDC = 2023 * mainCounts
-          Console.print(`주말 할인: -${weekendDC}원`)
+          const weekendDC = 2023 * mainCounts;
+          const stringWeekendDC = weekendDC.toLocaleString();
+          Console.print(`주말 할인: -${stringWeekendDC}원`)
           isDC = true;
           totalDC = totalDC + weekendDC;
         }
       };
       // 특별 할인
       if ((date + 1) % 7 === WEEK.IS_STAR[0]) {
-        const starDC = WEEK.IS_STAR[1]
-        Console.print(`특별 할인: -${starDC}원`)
+        const starDC = WEEK.IS_STAR[1];
+        const stringStarDC = starDC.toLocaleString();
+        Console.print(`특별 할인: -${stringStarDC}원`)
         isDC = true;
         totalDC = totalDC + starDC;
       };
       // 증정 이벤트
       if (totals > STANDARD.GIVE_CHAMPAGNE) {
-        const champagnePrice = MENU.샴페인.PRICE
-        Console.print(`증정 이벤트: -${champagnePrice}원`);
+        const champagnePrice = MENU.샴페인.PRICE;
+        const stringChampagnePrice = champagnePrice.toLocaleString();
+        Console.print(`증정 이벤트: -${stringChampagnePrice}원`);
         isDC = true;
         totalDC = totalDC + champagnePrice;
       }
@@ -109,7 +116,8 @@ const OutputView = {
   },
   printTotalDC(totalDC) {
     Console.print("<총혜택 금액>");
-    Console.print(`-${totalDC}원\n`);
+    const stringTotalDC = totalDC.toLocaleString();
+    Console.print(totalDC ? `-${stringTotalDC}원\n` : `${totalDC}원\n`);
   },
   printAfterDC(totals, totalDC) {
     Console.print("<할인 후 예상 결제 금액>");
@@ -117,7 +125,8 @@ const OutputView = {
     if (totals > STANDARD.GIVE_CHAMPAGNE) {
       afterDC = afterDC + MENU.샴페인.PRICE;
     }
-    Console.print(`${afterDC}원\n`);
+    const stringAfterDC = afterDC.toLocaleString();
+    Console.print(`${stringAfterDC}원\n`);
   },
   printBadge(totalDC) {
     Console.print("<12월 이벤트 배지>");
