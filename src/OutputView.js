@@ -104,7 +104,7 @@ const OutputView = {
         }
       };
       // 특별 할인
-      if ((date + 1) % 7 === WEEK.IS_STAR[0]) {
+      if ((date + 1) % 7 === WEEK.IS_STAR[0] || date === 25) {
         const starDC = WEEK.IS_STAR[1];
         const stringStarDC = starDC.toLocaleString();
         Console.print(`특별 할인: -${stringStarDC}원`)
