@@ -9,7 +9,7 @@ class App {
     const inputReservedDate = await InputView.readDate();
     const inputMenuList = await InputView.readMenu();
     OutputView.printBenefitsMessage(inputReservedDate);
-    
+
     // 주문 메뉴 출력
     const inputMenuListSplited = OutputView.printMenu(inputMenuList);
 
