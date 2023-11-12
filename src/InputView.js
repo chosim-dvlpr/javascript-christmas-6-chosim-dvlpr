@@ -1,5 +1,6 @@
 import { Console } from '@woowacourse/mission-utils'
 import Dates from './Dates.js';
+import Menus from './Menus.js';
 
 const InputView = {
   async readDate() {
@@ -14,8 +15,15 @@ const InputView = {
     }
   },
   async readMenu() {
-    const menu = await Console.readLineAsync("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
-    return menu
+    let menu;
+    try {
+      menu = await Console.readLineAsync("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
+      new Menus(menu);
+      return menu
+    } catch (error) {
+      Console.print(error.message)
+      await this.readMenu();
+    }
   }
 }
 
