@@ -6,11 +6,23 @@ import STANDARD from './constants/StandartConstant.js';
 const OutputView = {
   printMenu(inputMenuList) {
     Console.print("<주문 메뉴>");
+
+    const inputMenuListSplited = [];
     for (let i = 0; i < inputMenuList.length; i++) {
       const inputMenuListElement = inputMenuList[i];
-      Console.print(`${inputMenuListElement.menuName} ${inputMenuListElement.menuNum}개`);
+      const dash = inputMenuListElement.indexOf('-');
+      const menuName = inputMenuListElement.substr(0, dash);
+      const menuNum = inputMenuListElement.substr(dash+1, inputMenuListElement.length);
+      const data = {
+        menuName: menuName,
+        menuNum: menuNum
+      }
+      inputMenuListSplited.push(data)
+
+      Console.print(`${menuName} ${menuNum}개`);
     };
     Console.print("");
+    return inputMenuListSplited
   },
   printWelcome() {
     Console.print("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");

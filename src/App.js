@@ -7,29 +7,11 @@ class App {
 
     // 사용자 값 입력받기
     const inputReservedDate = await InputView.readDate();
-    const inputMenu = await InputView.readMenu();
-    console.log(inputMenu)
+    const inputMenuList = await InputView.readMenu();
     OutputView.printBenefitsMessage(inputReservedDate);
     
     // 주문 메뉴 출력
-    // 음료만 주문 시 주문 불가
-    // 한 번에 메뉴 20개까지만 주문 가능
-    
-    // const inputMenuList = inputMenu.split(',').map(String)
-    // const inputMenuListSplited = [];
-    // for (let i = 0; i < inputMenuList.length; i++) {
-    //   const inputMenuListElement = inputMenuList[i];
-    //   const dash = inputMenuListElement.indexOf('-')
-    //   // if (dash === -1) {
-    //   //   throw new Error("[ERROR]")
-    //   // }
-    //   const data = {
-    //     menuName: inputMenuListElement.substr(0, dash),
-    //     menuNum: inputMenuListElement.substr(dash+1, )
-    //   }
-    //   inputMenuListSplited.push(data)
-    // }
-    OutputView.printMenu(inputMenuListSplited);
+    const inputMenuListSplited = OutputView.printMenu(inputMenuList);
 
     // 할인 전 총주문 금액
     const {totals, dessertTotals, dessertCounts, mainTotals, mainCounts} = OutputView.printBeforeDCTotal(inputMenuListSplited)
