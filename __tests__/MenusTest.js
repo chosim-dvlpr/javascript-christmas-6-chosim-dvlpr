@@ -12,4 +12,19 @@ describe("메뉴 클래스 테스트", () => {
       new Menus("해산물파스타-1, 레드와인-a");
     }).toThrow(ERROR_MESSAGE.INPUT_MENU);
   });
+  test("메뉴의 개수가 1 이상만 입력될 수 있도록 한다", () => {
+    expect(() => {
+      new Menus("해산물파스타-0, 레드와인-1");
+    }).toThrow(ERROR_MESSAGE.INPUT_MENU);
+  });
+  test("메뉴가 중복되지 않은 값만 입력될 수 있도록 한다", () => {
+    expect(() => {
+      new Menus("해산물파스타-2, 해산물파스타-1");
+    }).toThrow(ERROR_MESSAGE.INPUT_MENU);
+  });
+  test("메뉴에 음료만 포함되지 않도록 한다", () => {
+    expect(() => {
+      new Menus("제로콜라-1");
+    }).toThrow(ERROR_MESSAGE.INPUT_MENU);
+  });
 });
