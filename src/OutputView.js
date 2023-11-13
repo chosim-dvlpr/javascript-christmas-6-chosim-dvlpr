@@ -27,8 +27,7 @@ const OutputView = {
     let dessertTotals = 0;
     let dessertCounts = 0;
 
-    totals = this.calcTotals(inputMenuList, totals, mainTotals, mainCounts, dessertTotals, dessertCounts);
-
+    ({totals, mainTotals, mainCounts, dessertTotals, dessertCounts} = this.calcTotals(inputMenuList, totals, mainTotals, mainCounts, dessertTotals, dessertCounts));
     const stringTotals = totals.toLocaleString();
     Console.print(`${stringTotals}원\n`);
     return {totals, dessertCounts, mainCounts}
@@ -43,55 +42,68 @@ const OutputView = {
   },
   printBenefitsDetails(totals, dessertCounts, mainCounts, dates) {
     Console.print("<혜택 내역>")
-    let isDC = false;
+    // let isDC = false;
     let totalDC = 0;
-    let countDC = 0;
+    let date;
+    let christmasDC;
+    let dayDC;
+    let specialDC;
+    let giveDC;
+    let dDayDC;
+    let weekdayDC;
+    let weekendDC;
+    let starDC;
+    let champagnePrice;
 
     if (totals > 10000) {
       // 크리스마스 디데이 할인
-      countDC, totalDC = this.christmasEvent(dates, totalDC);
-
-      // 평일 할인
-      const date = (dates + 1) % 7
-      if (date in WEEK.WEEKDAY) {
-        if (dessertCounts > 0) {
-          const weekdayDC = 2023 * dessertCounts;
-          const stringWeekdayDC = weekdayDC.toLocaleString();
-          Console.print(`평일 할인: -${stringWeekdayDC}원`)
-          isDC = true;
-          totalDC = totalDC + weekdayDC;
-        }
-      }
-      // 주말 할인
-      else {
-        if (mainCounts > 0) {
-          const weekendDC = 2023 * mainCounts;
-          const stringWeekendDC = weekendDC.toLocaleString();
-          Console.print(`주말 할인: -${stringWeekendDC}원`)
-          isDC = true;
-          totalDC = totalDC + weekendDC;
-        }
-      };
-      // 특별 할인
-      if ((date + 1) % 7 === WEEK.IS_STAR[0] || date === 25) {
-        const starDC = WEEK.IS_STAR[1];
-        const stringStarDC = starDC.toLocaleString();
-        Console.print(`특별 할인: -${stringStarDC}원`)
-        isDC = true;
-        totalDC = totalDC + starDC;
-      };
+      ({christmasDC, dDayDC} = this.christmasEvent(dates, totalDC));
+      ({dayDC, weekdayDC, weekendDC, date} = this.dayEvent(dates, totalDC, dessertCounts, mainCounts));
+      // // 평일 할인
+      // const date = (dates + 1) % 7
+      // if (date in WEEK.WEEKDAY) {
+      //   if (dessertCounts > 0) {
+      //     const weekdayDC = 2023 * dessertCounts;
+      //     const stringWeekdayDC = weekdayDC.toLocaleString();
+      //     Console.print(`평일 할인: -${stringWeekdayDC}원`)
+      //     isDC = true;
+      //     totalDC = totalDC + weekdayDC;
+      //   }
+      // }
+      // // 주말 할인
+      // else {
+      //   if (mainCounts > 0) {
+      //     const weekendDC = 2023 * mainCounts;
+      //     const stringWeekendDC = weekendDC.toLocaleString();
+      //     Console.print(`주말 할인: -${stringWeekendDC}원`)
+      //     isDC = true;
+      //     totalDC = totalDC + weekendDC;
+      //   }
+      // };
+      // // 특별 할인
+      ({ specialDC, starDC } = this.specialEvent(dates));
+      // if ((date + 1) % 7 === WEEK.IS_STAR[0] || date === 25) {
+      //   const starDC = WEEK.IS_STAR[1];
+      //   const stringStarDC = starDC.toLocaleString();
+      //   Console.print(`특별 할인: -${stringStarDC}원`)
+      //   isDC = true;
+      //   totalDC = totalDC + starDC;
+      // };
       // 증정 이벤트
-      if (totals > STANDARD.GIVE_CHAMPAGNE) {
-        const champagnePrice = MENU.샴페인.PRICE;
-        const stringChampagnePrice = champagnePrice.toLocaleString();
-        Console.print(`증정 이벤트: -${stringChampagnePrice}원`);
-        isDC = true;
-        totalDC = totalDC + champagnePrice;
-      }
+      ({ giveDC, champagnePrice } = this.giveEvent(totals, totalDC));
+      // if (totals > STANDARD.GIVE_CHAMPAGNE) {
+      //   const champagnePrice = MENU.샴페인.PRICE;
+      //   const stringChampagnePrice = champagnePrice.toLocaleString();
+      //   Console.print(`증정 이벤트: -${stringChampagnePrice}원`);
+      //   isDC = true;
+      //   totalDC = totalDC + champagnePrice;
+      // }
     }
-    if (!isDC) {
+    if (christmasDC === undefined || dayDC === undefined || specialDC === undefined || giveDC === undefined) {
       Console.print("없음")
+      return totalDC
     }
+    totalDC = dDayDC + weekdayDC + weekendDC + starDC + champagnePrice
     Console.print("")
     return totalDC
   },
@@ -156,19 +168,78 @@ const OutputView = {
           break;
       }
     }
-    return totals
+    return {totals, mainTotals, mainCounts, dessertTotals, dessertCounts}
   },
   christmasEvent(dates, totalDC) {
-    let countDC = 0;
+    let christmasDC = 0;
+    let dDayDC = 0;
     if (dates < 26) {
-      const dDayDC = 1000 + (dates - 1) * 100;
+      dDayDC = 1000 + (dates - 1) * 100;
       const stringDDayDC = dDayDC.toLocaleString();
       Console.print(`크리스마스 디데이 할인: -${stringDDayDC}원`)
-      countDC++;
-      totalDC = totalDC + dDayDC;
+      christmasDC++;
+      // totalDC = totalDC + dDayDC;
     }
-    return countDC, totalDC
+    return { christmasDC, dDayDC }
   },
+  dayEvent(dates, totalDC, dessertCounts, mainCounts) {
+    let dayDC = 0;
+    let weekdayDC = 0;
+    let weekendDC = 0;
+    // 평일 할인
+    const date = (Number(dates) + 1) % 7
+    if (WEEK.WEEKDAY.includes(date)) {
+      console.log('되나')
+      console.log(dessertCounts)
+      if (dessertCounts > 0) {
+        weekdayDC = 2023 * dessertCounts;
+        const stringWeekdayDC = weekdayDC.toLocaleString();
+        Console.print(`평일 할인: -${stringWeekdayDC}원`)
+        // isDC = true;
+        dayDC++;
+        totalDC = totalDC + weekdayDC;
+      }
+      return { dayDC, weekdayDC, weekendDC, date }
+    }
+    // 주말 할인
+    if (mainCounts > 0) {
+      weekendDC = 2023 * mainCounts;
+      const stringWeekendDC = weekendDC.toLocaleString();
+      Console.print(`주말 할인: -${stringWeekendDC}원`)
+      // isDC = true;
+      dayDC++;
+      // totalDC = totalDC + weekendDC;
+    }
+    return { dayDC, weekdayDC, weekendDC, date }
+    // return { dayDC, totalDC, date }
+  },
+  specialEvent(dates, totalDC) {
+    let specialDC = 0;
+    let starDC = 0;
+    if ((Number(dates) + 1) % 7 === WEEK.IS_STAR[0] || Number(dates) === 25) {
+      starDC = WEEK.IS_STAR[1];
+      const stringStarDC = starDC.toLocaleString();
+      Console.print(`특별 할인: -${stringStarDC}원`)
+      specialDC++;
+      // totalDC = totalDC + starDC;
+    };
+    // return { specialDC, totalDC }
+    return { specialDC, starDC }
+  },
+  giveEvent(totals, totalDC) {
+    let giveDC = 0;
+    let champagnePrice = 0;
+    if (totals > STANDARD.GIVE_CHAMPAGNE) {
+      champagnePrice = MENU.샴페인.PRICE;
+      const stringChampagnePrice = champagnePrice.toLocaleString();
+      Console.print(`증정 이벤트: -${stringChampagnePrice}원`);
+      // isDC = true;
+      giveDC++;
+      // totalDC = totalDC + champagnePrice;
+    }
+    // return { giveDC, totalDC }
+    return { giveDC, champagnePrice }
+  }
 }
 
 export default OutputView;
