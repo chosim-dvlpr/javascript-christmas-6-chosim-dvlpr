@@ -34,6 +34,11 @@ class Menus {
         throw new Error(ERROR_MESSAGE.INPUT_MENU);
       };
 
+      // 숫자가 1 이상인지 확인
+      if (lastNum < 1) {
+        throw new Error(ERROR_MESSAGE.INPUT_MENU);
+      }
+
       // 메뉴 목록에 있는 메뉴인지 확인
       const menuName = element.substr(0, dash);
       if (MENU[menuName] === undefined) {
