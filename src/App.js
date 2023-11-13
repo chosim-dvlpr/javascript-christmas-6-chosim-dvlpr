@@ -14,7 +14,7 @@ class App {
     const inputMenuListSplited = OutputView.printMenu(inputMenuList);
 
     // 할인 전 총주문 금액
-    const {totals, dessertTotals, dessertCounts, mainTotals, mainCounts} = OutputView.printBeforeDCTotal(inputMenuListSplited)
+    const {totals, dessertCounts, mainCounts} = OutputView.printBeforeDCTotal(inputMenuListSplited)
 
     // 증정 메뉴
     OutputView.printGivingMenu(totals);

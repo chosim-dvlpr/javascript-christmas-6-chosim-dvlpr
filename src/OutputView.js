@@ -58,7 +58,7 @@ const OutputView = {
     }
     const stringTotals = totals.toLocaleString();
     Console.print(`${stringTotals}원\n`);
-    return {totals, dessertTotals, dessertCounts, mainTotals, mainCounts}
+    return {totals, dessertCounts, mainCounts}
   },
   printGivingMenu(totals) {
     Console.print("<증정 메뉴>");
