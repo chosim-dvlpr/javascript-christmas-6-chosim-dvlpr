@@ -6,21 +6,9 @@ import STANDARD from './constants/StandartConstant.js';
 const OutputView = {
   printMenu(inputMenuList) {
     Console.print("<주문 메뉴>");
+    
+    const inputMenuListSplited = this.splitMenu(inputMenuList);
 
-    const inputMenuListSplited = [];
-    for (let i = 0; i < inputMenuList.length; i++) {
-      const inputMenuListElement = inputMenuList[i];
-      const dash = inputMenuListElement.indexOf('-');
-      const menuName = inputMenuListElement.substr(0, dash);
-      const menuNum = inputMenuListElement.substr(dash+1, inputMenuListElement.length);
-      const data = {
-        menuName: menuName,
-        menuNum: menuNum
-      }
-      inputMenuListSplited.push(data)
-
-      Console.print(`${menuName} ${menuNum}개`);
-    };
     Console.print("");
     return inputMenuListSplited
   },
@@ -155,6 +143,22 @@ const OutputView = {
     Console.print("없음");
     Console.print("");
   },
+  splitMenu(inputMenuList) {
+    const inputMenuListSplited = [];
+    for (let i = 0; i < inputMenuList.length; i++) {
+      const inputMenuListElement = inputMenuList[i];
+      const dash = inputMenuListElement.indexOf('-');
+      const menuName = inputMenuListElement.substr(0, dash);
+      const menuNum = inputMenuListElement.substr(dash+1, inputMenuListElement.length);
+      const data = {
+        menuName: menuName,
+        menuNum: menuNum
+      }
+      inputMenuListSplited.push(data)
+      Console.print(`${menuName} ${menuNum}개`);
+    };
+    return inputMenuListSplited
+  }
 }
 
 export default OutputView;
