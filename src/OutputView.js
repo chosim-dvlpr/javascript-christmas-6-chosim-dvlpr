@@ -26,7 +26,7 @@ const OutputView = {
     let mainCounts = 0;
     let dessertTotals = 0;
     let dessertCounts = 0;
-    
+
     totals = this.calcTotals(inputMenuList, totals, mainTotals, mainCounts, dessertTotals, dessertCounts);
 
     const stringTotals = totals.toLocaleString();
@@ -45,16 +45,12 @@ const OutputView = {
     Console.print("<혜택 내역>")
     let isDC = false;
     let totalDC = 0;
+    let countDC = 0;
 
     if (totals > 10000) {
       // 크리스마스 디데이 할인
-      if (dates < 26) {
-        const dDayDC = 1000 + (dates - 1) * 100;
-        const stringDDayDC = dDayDC.toLocaleString();
-        Console.print(`크리스마스 디데이 할인: -${stringDDayDC}원`)
-        isDC = true;
-        totalDC = totalDC + dDayDC;
-      }
+      countDC, totalDC = this.christmasEvent(dates, totalDC);
+
       // 평일 할인
       const date = (dates + 1) % 7
       if (date in WEEK.WEEKDAY) {
@@ -161,6 +157,17 @@ const OutputView = {
       }
     }
     return totals
+  },
+  christmasEvent(dates, totalDC) {
+    let countDC = 0;
+    if (dates < 26) {
+      const dDayDC = 1000 + (dates - 1) * 100;
+      const stringDDayDC = dDayDC.toLocaleString();
+      Console.print(`크리스마스 디데이 할인: -${stringDDayDC}원`)
+      countDC++;
+      totalDC = totalDC + dDayDC;
+    }
+    return countDC, totalDC
   },
 }
 
