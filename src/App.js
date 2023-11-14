@@ -1,4 +1,5 @@
 import AfterDCView from './view/AfterDCView.js';
+import BadgeView from './view/BadgeView.js';
 import BeforeDCView from './view/BeforeDCView.js';
 import BenefitsView from './view/BenefitsView.js';
 import GivingMenu from './view/GivingMenuView.js';
@@ -34,7 +35,7 @@ class App {
     AfterDCView.printAfterDC(totals, totalDC);
 
     // 12월 이벤트 배지
-    OutputView.printBadge(totalDC);
+    BadgeView.printBadge(totalDC);
   }
 }
 

@@ -19,21 +19,7 @@ const OutputView = {
     Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`);
   },
 
-  printBadge(totalDC) {
-    Console.print("<12월 이벤트 배지>");
-    if (totalDC > STANDARD.BADGE_SANTA.PRICE) {
-      Console.print(STANDARD.BADGE_SANTA.NAME);
-      return
-    } else if (totalDC > STANDARD.BADGE_TREE.PRICE) {
-      Console.print(STANDARD.BADGE_TREE.PRICE);
-      return
-    } else if (totalDC > STANDARD.BADGE_STAR.PRICE) {
-      Console.print(STANDARD.BADGE_STAR.NAME);
-      return
-    }
-    Console.print("없음");
-    Console.print("");
-  },
+  
   splitMenu(inputMenuList) {
     const inputMenuListSplited = [];
     for (let i = 0; i < inputMenuList.length; i++) {
