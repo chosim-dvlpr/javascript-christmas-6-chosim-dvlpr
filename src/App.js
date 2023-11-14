@@ -3,6 +3,7 @@ import BenefitsView from './view/BenefitsView.js';
 import GivingMenu from './view/GivingMenuView.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
+import TotalDCView from './view/TotalDCView.js';
 
 class App {
   async run() {
@@ -26,7 +27,7 @@ class App {
     const totalDC = BenefitsView.printBenefitsDetails(totals, dessertCounts, mainCounts, inputReservedDate);
 
     // 총 혜택 금액
-    OutputView.printTotalDC(totalDC);
+    TotalDCView.printTotalDC(totalDC);
 
     // 할인 후 예상 결제 금액
     OutputView.printAfterDC(totals, totalDC);

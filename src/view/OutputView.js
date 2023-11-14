@@ -19,11 +19,6 @@ const OutputView = {
     Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`);
   },
 
-  printTotalDC(totalDC) {
-    Console.print("<총혜택 금액>");
-    const stringTotalDC = totalDC.toLocaleString();
-    Console.print(totalDC ? `-${stringTotalDC}원\n` : `${totalDC}원\n`);
-  },
   printAfterDC(totals, totalDC) {
     Console.print("<할인 후 예상 결제 금액>");
     let afterDC = totals - totalDC;
