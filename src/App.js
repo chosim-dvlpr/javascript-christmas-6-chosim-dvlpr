@@ -1,5 +1,6 @@
-import InputView from './InputView.js';
-import OutputView from './OutputView.js';
+import BeforeDCView from './view/BeforeDCView.js';
+import InputView from './view/InputView.js';
+import OutputView from './view/OutputView.js';
 
 class App {
   async run() {
@@ -14,7 +15,7 @@ class App {
     const inputMenuListSplited = OutputView.printMenu(inputMenuList);
 
     // 할인 전 총주문 금액
-    const {totals, dessertCounts, mainCounts} = OutputView.printBeforeDCTotal(inputMenuListSplited)
+    const {totals, dessertCounts, mainCounts} = BeforeDCView.printBeforeDCTotal(inputMenuListSplited)
 
     // 증정 메뉴
     OutputView.printGivingMenu(totals);

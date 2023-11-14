@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils'
-import Dates from './Dates.js';
-import Menus from './Menus.js';
+import Dates from '../Dates.js';
+import Menus from '../Menus.js';
 
 const InputView = {
   async readDate() {
