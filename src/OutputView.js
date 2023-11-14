@@ -156,24 +156,27 @@ const OutputView = {
     let dayDC = 0;
     let weekdayDC = 0;
     let weekendDC = 0;
-  
     const date = (Number(dates) + 1) % 7;
   
     if (WEEK.WEEKDAY.includes(date) && dessertCounts > 0) {
-      weekdayDC = 2023 * dessertCounts;
-      const stringWeekdayDC = weekdayDC.toLocaleString();
-      Console.print(`평일 할인: -${stringWeekdayDC}원`);
-      dayDC++;
-      totalDC += weekdayDC;
+      ({ dayDC, weekdayDC, totalDC } = this.weekdayDiscount(dessertCounts, totalDC));
     } else if (mainCounts > 0) {
-      weekendDC = 2023 * mainCounts;
-      const stringWeekendDC = weekendDC.toLocaleString();
-      Console.print(`주말 할인: -${stringWeekendDC}원`);
-      dayDC++;
-      totalDC += weekendDC;
+      ({ dayDC, weekendDC, totalDC } = this.weekendDiscount(mainCounts, totalDC));
     }
   
     return { name: '일반 할인', amount: weekdayDC + weekendDC, dayDC, weekdayDC, weekendDC, date };
+  },
+  weekdayDiscount(dessertCounts, totalDC) {
+    const weekdayDC = 2023 * dessertCounts;
+    const stringWeekdayDC = weekdayDC.toLocaleString();
+    Console.print(`평일 할인: -${stringWeekdayDC}원`);
+    return { dayDC: 1, weekdayDC, totalDC: totalDC + weekdayDC };
+  },
+  weekendDiscount(mainCounts, totalDC) {
+    const weekendDC = 2023 * mainCounts;
+    const stringWeekendDC = weekendDC.toLocaleString();
+    Console.print(`주말 할인: -${stringWeekendDC}원`);
+    return { dayDC: 1, weekendDC, totalDC: totalDC + weekendDC };
   },
   specialEvent(dates, totalDC) {
     let specialDC = 0;
