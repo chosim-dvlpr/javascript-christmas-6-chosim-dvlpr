@@ -13,6 +13,17 @@ class Menus {
     this.#validateNull(menus);
 
     const menuItems = menus.split(',').map(item => item.trim());
+
+    this.#validateAllMenus(menuItems);
+  }
+
+  #validateNull(menus) {
+    if (menus === null) {
+      throw new Error(ERROR_MESSAGE.INPUT_MENU);
+    }
+  }
+
+  #validateAllMenus(menuItems) {
     let totalMenuNum = 0;
     let notIncludeDrinks = 0;
     let checkMenus = [];
@@ -24,19 +35,11 @@ class Menus {
       this.#validateMenuCount(menuCount);
       this.#validateMenu(menuName);
       checkMenus = this.#validateDuplicateMenu(checkMenus, menuName);
-
       totalMenuNum += menuCount;
-
       this.#validateTotalMenuNum(totalMenuNum);
       notIncludeDrinks = this.#updateIsOnlyDrinks(notIncludeDrinks, menuName);
     }
     this.#validateIsOnlyDrinks(notIncludeDrinks);
-  }
-
-  #validateNull(menus) {
-    if (menus === null) {
-      throw new Error(ERROR_MESSAGE.INPUT_MENU);
-    }
   }
 
   #menuDetail(item) {
