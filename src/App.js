@@ -1,4 +1,5 @@
 import BeforeDCView from './view/BeforeDCView.js';
+import BenefitsView from './view/BenefitsView.js';
 import GivingMenu from './view/GivingMenuView.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
@@ -22,7 +23,7 @@ class App {
     GivingMenu.printGivingMenu(totals);
 
     // 혜택 내역
-    const totalDC = OutputView.printBenefitsDetails(totals, dessertCounts, mainCounts, inputReservedDate);
+    const totalDC = BenefitsView.printBenefitsDetails(totals, dessertCounts, mainCounts, inputReservedDate);
 
     // 총 혜택 금액
     OutputView.printTotalDC(totalDC);
