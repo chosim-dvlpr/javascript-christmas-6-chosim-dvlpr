@@ -45,30 +45,35 @@ const OutputView = {
   
     let totalDC = 0;
     let events = [];
-  
+
     if (totals > 10000) {
-      events = [
-        this.christmasEvent(dates, totalDC),
-        this.dayEvent(dates, totalDC, dessertCounts, mainCounts),
-        this.specialEvent(dates),
-        this.giveEvent(totals, totalDC)
-      ].filter(Boolean);
-  
-      totalDC = events.reduce((acc, event) => acc + event.amount, totalDC);
+      ({ totalDC, events } = this.checkEvents(dates, totals, totalDC, dessertCounts, mainCounts));
     }
-  
     if (events.length === 0) {
       Console.print("없음");
       return totalDC;
     }
   
+    this.printEvents(events);  
+    return totalDC;
+  },
+  checkEvents(dates, totals, totalDC, dessertCounts, mainCounts) {
+    let events = [
+      this.christmasEvent(dates, totalDC),
+      this.dayEvent(dates, totalDC, dessertCounts, mainCounts),
+        this.specialEvent(dates),
+        this.giveEvent(totals, totalDC)
+    ].filter(Boolean);
+
+    totalDC = events.reduce((acc, event) => acc + event.amount, totalDC);
+    return { totalDC, events };
+  },
+  printEvents(events) {
     events.forEach(event => {
       Console.print(`${event.name}: -${event.amount.toLocaleString()}원`);
     });
   
     Console.print("");
-  
-    return totalDC;
   },
   printTotalDC(totalDC) {
     Console.print("<총혜택 금액>");
