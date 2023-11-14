@@ -17,24 +17,30 @@ class Menus {
     const menuItems = menus.split(',').map(item => item.trim());
     let totalMenuNum = 0;
     let isOnlyDrinks = true;
+    let checkMenus = [];
 
     for (const item of menuItems) {
       const dash = item.indexOf('-');
-
+      
       if (dash === -1) {
         throw new Error(ERROR_MESSAGE.INPUT_MENU);
       }
-
+      
       const menuName = item.substring(0, dash);
       const menuCount = parseInt(item.substr(dash+1));
-
+      
       if (isNaN(menuCount) || menuCount < 1) {
         throw new Error(ERROR_MESSAGE.INPUT_MENU);
       }
-
+      
       if (!MENU[menuName]) {
         throw new Error(ERROR_MESSAGE.INPUT_MENU);
       }
+
+      if (checkMenus.includes(menuName)) {
+        throw new Error(ERROR_MESSAGE.INPUT_MENU);
+      }
+      checkMenus.push(menuName);
 
       if (MENU[menuName].TYPE !== 'drink') {
         isOnlyDrinks = false;
