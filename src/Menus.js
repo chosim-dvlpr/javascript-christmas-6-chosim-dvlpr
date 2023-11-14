@@ -10,55 +10,45 @@ class Menus {
   }
 
   #validate(menus) {
-    // 문자열 형식이 맞는지 검사
-    // null 확인
     if (menus === null) {
       throw new Error(ERROR_MESSAGE.INPUT_MENU);
     }
 
-    const menu = menus.split(',').map(String)
-    let menuNum = 0;
+    const menuItems = menus.split(',').map(item => item.trim());
+    let totalMenuNum = 0;
     let isOnlyDrinks = true;
-    for (let i = 0; i < menu.length; i++) {
-      const element = menu[i];
 
-      // dash 확인
-      const dash = element.indexOf('-')
+    for (const item of menuItems) {
+      const dash = item.indexOf('-');
+
       if (dash === -1) {
-        throw new Error(ERROR_MESSAGE.INPUT_MENU);
-      };
-      
-      // 마지막이 숫자인지 확인
-      const lastNum = element.substr(dash+1, element.length);
-      if (isNaN(lastNum)) {
-        throw new Error(ERROR_MESSAGE.INPUT_MENU);
-      };
-
-      // 숫자가 1 이상인지 확인
-      if (lastNum < 1) {
         throw new Error(ERROR_MESSAGE.INPUT_MENU);
       }
 
-      // 메뉴 목록에 있는 메뉴인지 확인
-      const menuName = element.substr(0, dash);
-      if (MENU[menuName] === undefined) {
-        throw new Error(ERROR_MESSAGE.INPUT_MENU);
-      };
+      const menuName = item.substring(0, dash);
+      const menuCount = parseInt(item.substr(dash+1));
 
-      // 메뉴가 음료가 아닌지 확인
+      if (isNaN(menuCount) || menuCount < 1) {
+        throw new Error(ERROR_MESSAGE.INPUT_MENU);
+      }
+
+      if (!MENU[menuName]) {
+        throw new Error(ERROR_MESSAGE.INPUT_MENU);
+      }
+
       if (MENU[menuName].TYPE !== 'drink') {
         isOnlyDrinks = false;
-      };
+      }
 
-      // 메뉴 20개 초과인지 확인
-      menuNum = menuNum + Number(lastNum);
-      if (menuNum > 20) {
+      totalMenuNum += menuCount;
+
+      if (totalMenuNum > 20) {
         throw new Error(ERROR_MESSAGE.INPUT_MENU);
-      };
-    }
+      }
 
-    if (isOnlyDrinks) {
-      throw new Error(ERROR_MESSAGE.INPUT_MENU);
+      if (isOnlyDrinks) {
+        throw new Error(ERROR_MESSAGE.INPUT_MENU);
+      }
     }
   }
 }
