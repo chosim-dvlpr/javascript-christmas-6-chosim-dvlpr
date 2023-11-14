@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
-import STANDARD from "../constants/StandartConstant";
-import MENU from "../constants/MenuConstant";
+import STANDARD from "../constants/StandartConstant.js";
+import MENU from "../constants/MenuConstant.js";
 
 const AfterDCView = {
   printAfterDC(totals, totalDC) {

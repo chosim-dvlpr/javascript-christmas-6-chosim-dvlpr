@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils'
-import STANDARD from '../constants/StandartConstant';
+import STANDARD from '../constants/StandartConstant.js';
 
 const GivingMenu = {
   printGivingMenu(totals) {

@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils'
-import MENU from '../constants/MenuConstant';
+import MENU from '../constants/MenuConstant.js';
 
 const BeforeDCView = {
   printBeforeDCTotal(inputMenuList) {

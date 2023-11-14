@@ -1,7 +1,7 @@
 import { Console } from '@woowacourse/mission-utils'
-import WEEK from '../constants/WeekConstant';
-import STANDARD from '../constants/StandartConstant';
-import MENU from '../constants/MenuConstant';
+import WEEK from '../constants/WeekConstant.js';
+import STANDARD from '../constants/StandartConstant.js';
+import MENU from '../constants/MenuConstant.js';
 
 const BenefitsView = {
   printBenefitsDetails(totals, dessertCounts, mainCounts, dates) {
