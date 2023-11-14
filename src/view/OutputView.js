@@ -19,15 +19,6 @@ const OutputView = {
     Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`);
   },
 
-  printAfterDC(totals, totalDC) {
-    Console.print("<할인 후 예상 결제 금액>");
-    let afterDC = totals - totalDC;
-    if (totals > STANDARD.GIVE_CHAMPAGNE) {
-      afterDC = afterDC + MENU.샴페인.PRICE;
-    }
-    const stringAfterDC = afterDC.toLocaleString();
-    Console.print(`${stringAfterDC}원\n`);
-  },
   printBadge(totalDC) {
     Console.print("<12월 이벤트 배지>");
     if (totalDC > STANDARD.BADGE_SANTA.PRICE) {

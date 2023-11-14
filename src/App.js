@@ -1,3 +1,4 @@
+import AfterDCView from './view/AfterDCView.js';
 import BeforeDCView from './view/BeforeDCView.js';
 import BenefitsView from './view/BenefitsView.js';
 import GivingMenu from './view/GivingMenuView.js';
@@ -30,7 +31,7 @@ class App {
     TotalDCView.printTotalDC(totalDC);
 
     // 할인 후 예상 결제 금액
-    OutputView.printAfterDC(totals, totalDC);
+    AfterDCView.printAfterDC(totals, totalDC);
 
     // 12월 이벤트 배지
     OutputView.printBadge(totalDC);
