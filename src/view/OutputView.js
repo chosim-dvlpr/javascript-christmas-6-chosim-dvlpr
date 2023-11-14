@@ -19,14 +19,6 @@ const OutputView = {
     Console.print(`12월 ${date}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n`);
   },
 
-  printGivingMenu(totals) {
-    Console.print("<증정 메뉴>");
-    if (totals > STANDARD.GIVE_CHAMPAGNE) {
-      Console.print("샴페인 1개\n");
-      return
-    }
-    Console.print("없음\n");
-  },
   printBenefitsDetails(totals, dessertCounts, mainCounts, dates) {
     Console.print("<혜택 내역>");
   

@@ -1,4 +1,5 @@
 import BeforeDCView from './view/BeforeDCView.js';
+import GivingMenu from './view/GivingMenuView.js';
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 
@@ -18,7 +19,7 @@ class App {
     const {totals, dessertCounts, mainCounts} = BeforeDCView.printBeforeDCTotal(inputMenuListSplited)
 
     // 증정 메뉴
-    OutputView.printGivingMenu(totals);
+    GivingMenu.printGivingMenu(totals);
 
     // 혜택 내역
     const totalDC = OutputView.printBenefitsDetails(totals, dessertCounts, mainCounts, inputReservedDate);
